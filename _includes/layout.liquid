@@ -1,5 +1,5 @@
 ---
-title: 11ty Boilerplate
+title: MI 449 Lab 7
 ---
 
 <!DOCTYPE html>
@@ -8,15 +8,31 @@ title: 11ty Boilerplate
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ title }}</title>
-  <link rel="stylesheet" href="/styles/screen.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/hankhank10/alpine-fetch@main/alpine-fetch.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    async function generate() {
+      const requestURL = "https://dummyjson.com/todos/random";
+      const request = new Request(requestURL);
+      const response = await fetch(request);
+      const todo = await response.json();
+      displayHTML(todo);
+    }
+
+    function displayHTML(todo){
+      const container = document.getElementById("container");
+
+      const todoTodo = document.getElementById("todoTodo");
+      todoTodo.textContent = todo.todo;
+
+      const todoCompleted = document.getElementById("todoCompleted");
+      todoCompleted.textContent =  todo.completed ? "Completed" : "Not Completed";
+}
+    generate();
+  </script>
 </head>
 <body>
-  <nav>
-    <ul>
-      <li><a href="/" title="Go home">Home</a></li>
-      <li><a href="/about/" title="About the boilerplate">About</a></li>
-    </ul>
-  </nav>
     {{ content }}
 </body>
 </html>
